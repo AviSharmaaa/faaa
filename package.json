@@ -2,7 +2,7 @@
   "name": "faaa",
   "displayName": "FAAA",
   "description": "Plays FAAA when a command fails. You deserve it.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "AviSharma",
   "icon": "images/icon.png",
   "engines": {
