@@ -9,4 +9,4 @@ Because you deserve to hear it.
 - Shell Integration must be enabled (it is by default)
 
 ## How it works
-Any command in the VS Code terminal that exits with a non-zero code → FAAAAH.
+Any command in the VS Code terminal that exits with a non-zero code → FAAA.

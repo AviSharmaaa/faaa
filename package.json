@@ -3,7 +3,7 @@
   "displayName": "FAAA",
   "description": "Plays FAAA when a command fails. You deserve it.",
   "version": "0.0.1",
-  "publisher": "Avi Sharma",
+  "publisher": "AviSharma",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.93.0"
