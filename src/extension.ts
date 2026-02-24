@@ -1,11 +1,18 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as cp from "child_process";
+import * as crypto from "crypto";
+
+const sounds = [
+  "faaa-0.mp3",
+  "faaa-1.mp3",
+  "faaa-2.mp3",
+  "faaa-3.mp3",
+  "faaa-4.mp3",
+];
 
 export function activate(context: vscode.ExtensionContext) {
   console.log("FAAA is watching your failures 👀");
-
-  const soundPath = path.join(context.extensionPath, "sounds", "faaa.mp3");
 
   // Method 1: VS Code Task failures
   context.subscriptions.push(
@@ -13,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (e.exitCode === undefined || e.exitCode === 0) return;
       if (e.exitCode === 130) return;
 
-      playSound(soundPath);
+      playSound(context);
     }),
   );
 
@@ -50,21 +57,26 @@ export function activate(context: vscode.ExtensionContext) {
       ];
       if (ignore.some((c) => cmd.startsWith(c))) return;
 
-      playSound(soundPath);
+      playSound(context);
     }),
   );
 }
 
-function playSound(filePath: string) {
+function playSound(context: vscode.ExtensionContext) {
+  // make this more random by picking a random sound from the list
+  const soundName = sounds[crypto.randomInt(0, sounds.length)];
+  const soundPath = path.join(context.extensionPath, "sounds", soundName);
+
   const platform = process.platform;
   let cmd: string;
 
   if (platform === "darwin") {
-    cmd = `afplay "${filePath}"`;
+    cmd = `afplay "${soundPath}"`;
   } else if (platform === "linux") {
-    cmd = `mpg123 -q "${filePath}" 2>/dev/null || aplay "${filePath}"`;
+    // try mpg123, aplay, or paplay, whichever is available
+    cmd = `mpg123 -q "${soundPath}" 2>/dev/null || aplay "${soundPath}" 2>/dev/null || paplay "${soundPath}" 2>/dev/null`;
   } else if (platform === "win32") {
-    cmd = `powershell -c "$p = New-Object System.Windows.Media.MediaPlayer; $p.Open('${filePath}'); $p.Play(); Start-Sleep 3"`;
+    cmd = `powershell -c "$p = New-Object System.Windows.Media.MediaPlayer; $p.Open('${soundPath}'); $p.Play(); Start-Sleep 3"`;
   } else {
     return;
   }
