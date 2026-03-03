@@ -3,7 +3,7 @@
   "displayName": "FAAA",
   "description": "Plays FAAA when a command fails. You deserve it.",
   "version": "0.0.4",
-  "publisher": "AviSharma",
+  "publisher": "kierandrewett",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.93.0"
@@ -17,9 +17,16 @@
   "main": "./dist/extension.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AviSharmaaa/faaa"
+    "url": "https://github.com/kierandrewett/faaa"
   },
-  "contributes": {},
+  "contributes": {
+    "commands": [
+      {
+        "command": "faaa.setVolume",
+        "title": "FAAA: Set Volume"
+      }
+    ]
+  },
   "scripts": {
     "compile": "webpack",
     "watch": "webpack --watch"
