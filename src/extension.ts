@@ -64,7 +64,7 @@ function playSound(filePath: string) {
   } else if (platform === "linux") {
     cmd = `mpg123 -q "${filePath}" 2>/dev/null || aplay "${filePath}"`;
   } else if (platform === "win32") {
-    cmd = `powershell -c "$p = New-Object System.Windows.Media.MediaPlayer; $p.Open('${filePath}'); $p.Play(); Start-Sleep 3"`;
+    cmd = `powershell -c "Add-Type -AssemblyName PresentationCore; $p = New-Object System.Windows.Media.MediaPlayer; $p.Open('${filePath}'); $p.Play(); Start-Sleep 3"`;
   } else {
     return;
   }
